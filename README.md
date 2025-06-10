@@ -9,3 +9,9 @@ audited and inspected.By using this system, the user consents to such logging,
 monitoring, auditing and inspection.There is no expectation of privacy on this
 system.
 -------------------------------------------------------------------------------
+
+
+gcloud services enable compute.googleapis.com
+ssh-keygen -f ~/.ssh/vmseries-firewall -t rsa
+git clone https://github.com/PaloAltoNetworks/google-cloud-vmseries-ha-tutorial
+cd google-cloud-vmseries-ha-tutorial
