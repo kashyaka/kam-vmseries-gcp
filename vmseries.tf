@@ -65,6 +65,7 @@ data "google_compute_subnetwork" "ha2" {
 data "template_file" "bootstrap_xml" {
   for_each = local.vmseries_vms
   template = file("${path.module}/bootstrap_files/bootstrap.xml.template")
+  #template = file("${path.module}/bootstrap_files/bootstrap.xml.template")
 
   vars = {
     extlb_outbound_ip         = google_compute_address.extlb_outbound_ip.address
