@@ -113,6 +113,7 @@ module "vpc_trust" {
     }
   ]
 }
+
 module "vpc_extranet" {
   source                                 = "terraform-google-modules/network/google"
   version                                = "~> 9.0"
@@ -123,12 +124,11 @@ module "vpc_extranet" {
 
   subnets = [
     {
-      subnet_name   = "${local.prefix}${var.region}-extranet"
-      subnet_ip     = var.cidr_extranet
+      subnet_name   = "${local.prefix}${var.region}-extranet-trust"
+      subnet_ip     = var.extranet_cidr_trust
       subnet_region = var.region
     }
   ]
-
   firewall_rules = [
     {
       name      = "${local.prefix}allow-all-trust"
@@ -184,9 +184,6 @@ resource "google_compute_route" "default_to_vmseries" {
   next_hop_ilb = google_compute_forwarding_rule.intlb.id
   priority     = 100
 }
-
-
-
 
 # ----------------------------------------------------------------------------------------------------------------
 # Create a VM for testing purposes. 

@@ -11,5 +11,4 @@ cidr_mgmt           = "10.0.0.0/24"
 cidr_untrust        = "10.0.1.0/24"
 cidr_trust          = "10.0.2.0/24"
 cidr_ha2            = "10.0.3.0/24"
-cidr_extranet       = "10.0.4.0/24
 create_workload_vm  = true

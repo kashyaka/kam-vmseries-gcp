@@ -14,6 +14,8 @@ locals {
       untrust_gateway_ip        = data.google_compute_subnetwork.untrust.gateway_address
       trust_private_ip          = cidrhost(var.cidr_trust, 2)
       trust_gateway_ip          = data.google_compute_subnetwork.trust.gateway_address
+      extranet_trust_private_ip = cidrhost(var.extranet_cidr_trust, 2)
+      extranet_trust_gateway_ip = data.google_compute_subnetwork.extranet_trust.gateway_address
       ha2_private_ip            = cidrhost(var.cidr_ha2, 2)
       ha2_subnet_mask           = cidrnetmask(var.cidr_ha2)
       ha2_gateway_ip            = data.google_compute_subnetwork.ha2.gateway_address
@@ -30,6 +32,8 @@ locals {
       untrust_gateway_ip        = data.google_compute_subnetwork.untrust.gateway_address
       trust_private_ip          = cidrhost(var.cidr_trust, 3)
       trust_gateway_ip          = data.google_compute_subnetwork.trust.gateway_address
+      extranet_trust_private_ip = cidrhost(var.extranet_cidr_trust, 2)
+      extranet_trust_gateway_ip = data.google_compute_subnetwork.extranet_trust.gateway_address
       ha2_private_ip            = cidrhost(var.cidr_ha2, 3)
       ha2_subnet_mask           = cidrnetmask(var.cidr_ha2)
       ha2_gateway_ip            = data.google_compute_subnetwork.ha2.gateway_address
@@ -61,11 +65,14 @@ data "google_compute_subnetwork" "ha2" {
   region    = var.region
 }
 
+data "google_compute_subnetwork" "extranet_trust" {
+  self_link = module.vpc_extranet.subnets_self_links[0]
+  region    = var.region
+}
 # Modify bootstrap.xml to reflect the VPC networks.
 data "template_file" "bootstrap_xml" {
   for_each = local.vmseries_vms
   template = file("${path.module}/bootstrap_files/bootstrap.xml.template")
-  #template = file("${path.module}/bootstrap_files/bootstrap.xml.template")
 
   vars = {
     extlb_outbound_ip         = google_compute_address.extlb_outbound_ip.address
@@ -76,6 +83,8 @@ data "template_file" "bootstrap_xml" {
     untrust_gateway_ip        = each.value.untrust_gateway_ip
     trust_private_ip          = each.value.trust_private_ip
     trust_gateway_ip          = each.value.trust_gateway_ip
+    extranet_trust_private_ip = each.value.extranet_trust_private_ip
+    extranet_trust_gateway_ip = each.value.extranet_trust_gateway_ip
     ha2_private_ip            = each.value.ha2_private_ip
     ha2_subnet_mask           = each.value.ha2_subnet_mask
     ha2_gateway_ip            = each.value.ha2_gateway_ip
@@ -166,6 +175,10 @@ module "vmseries" {
     {
       subnetwork = module.vpc_ha2.subnets_self_links[0]
       private_ip = each.value.ha2_private_ip
+    },
+    {
+      subnetwork = module.vpc_extranet.subnets_self_links[0]
+      private_ip = each.value.extranet_trust_private_ip
     }
   ]
 

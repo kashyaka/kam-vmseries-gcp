@@ -121,7 +121,7 @@
             <entry name="ethernet1/3">
               <ha/>
             </entry>
-            <entry name="ethernet1/4">
+          <entry name="ethernet1/4">
               <layer3>
                 <ndp-proxy>
                   <enabled>no</enabled>
@@ -141,8 +141,7 @@
                 </dhcp-client>
               </layer3>
               <link-state>auto</link-state>
-            </entry>
-          </ethernet>
+            </entry></ethernet>
           <loopback>
             <units>
               <entry name="loopback.254">
@@ -160,7 +159,7 @@
                   <enable>no</enable>
                 </adjust-tcp-mss>
                 <ip>
-                  <entry name="${extlb_outbound_ip}/32"/>
+                  <entry name="34.28.107.116/32"/>
                 </ip>
                 <comment>Outbound internet traffic through external LB</comment>
               </entry>
@@ -384,7 +383,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -403,7 +402,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -422,7 +421,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -441,7 +440,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -460,7 +459,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -479,7 +478,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -498,7 +497,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${trust_gateway_ip}</ip-address>
+                      <ip-address>10.152.5.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -517,7 +516,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${untrust_gateway_ip}</ip-address>
+                      <ip-address>10.152.1.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -536,7 +535,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${untrust_gateway_ip}</ip-address>
+                      <ip-address>10.152.1.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -555,7 +554,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${untrust_gateway_ip}</ip-address>
+                      <ip-address>10.152.1.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -574,7 +573,7 @@
                       <hold-time>2</hold-time>
                     </path-monitor>
                     <nexthop>
-                      <ip-address>${untrust_gateway_ip}</ip-address>
+                      <ip-address>10.152.1.1</ip-address>
                     </nexthop>
                     <bfd>
                       <profile>None</profile>
@@ -662,14 +661,14 @@
             <ha1-backup/>
             <ha2>
               <port>ethernet1/3</port>
-              <ip-address>${ha2_private_ip}</ip-address>
-              <netmask>${ha2_subnet_mask}</netmask>
-              <gateway>${ha2_gateway_ip}</gateway>
+              <ip-address>10.152.7.2</ip-address>
+              <netmask>255.255.255.0</netmask>
+              <gateway>10.152.7.1</gateway>
             </ha2>
           </interface>
           <group>
             <group-id>1</group-id>
-            <peer-ip>${managementpeer_private_ip}</peer-ip>
+            <peer-ip>10.152.6.3</peer-ip>
             <election-option>
               <timers>
                 <aggressive/>
@@ -805,7 +804,7 @@
                     <member>any</member>
                   </source>
                   <destination>
-                    <member>${extlb_inbound_ip}</member>
+                    <member>34.28.82.130</member>
                   </destination>
                   <service>any</service>
                   <description>Internet inbound DNAT to test VM.</description>
@@ -1040,7 +1039,7 @@
               </tag>
             </entry>
             <entry name="test-vm">
-              <ip-netmask>${workload_vm}</ip-netmask>
+              <ip-netmask>10.152.5.5</ip-netmask>
               <tag>
                 <member>internal-ip</member>
               </tag>
