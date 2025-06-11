@@ -26,7 +26,11 @@ variable "vmseries_image_name" {
   type        = string
   default     = "vmseries-flex-bundle2-1017"
 }
-
+variable "machine_type" {
+  description = "Firewall instance machine type, which depends on the license used. See the [Terraform manual](https://www.terraform.io/docs/providers/google/r/compute_instance.html)"
+  default     = "n2-standard-4"
+  type        = string
+}
 variable "mgmt_allow_ips" {
   description = "A list of IP addresses to be added to the management network's ingress firewall rule. The IP addresses will be able to access to the VM-Series management interface."
   type        = list(string)
